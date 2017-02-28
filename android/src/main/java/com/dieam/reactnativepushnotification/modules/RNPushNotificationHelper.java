@@ -31,6 +31,8 @@ import java.util.Arrays;
 import static com.dieam.reactnativepushnotification.modules.RNPushNotification.LOG_TAG;
 import static com.dieam.reactnativepushnotification.modules.RNPushNotificationAttributes.fromJson;
 
+
+
 public class RNPushNotificationHelper {
     public static final String PREFERENCES_KEY = "rn_push_notification";
     private static final long DEFAULT_VIBRATION = 300L;
@@ -40,6 +42,12 @@ public class RNPushNotificationHelper {
     private static final int ONE_MINUTE = 60 * 1000;
     private static final long ONE_HOUR = 60 * ONE_MINUTE;
     private static final long ONE_DAY = 24 * ONE_HOUR;
+
+    /* = = = = = = NOTIFICATION STACKING = = = = = = */
+    public static int currentNotificationID = 0;
+    public static int combinedNotificationCounter = 0;
+    /* = = = = = = NOTIFICATION STACKING = = = = = = */
+
 
     public RNPushNotificationHelper(Application context) {
         this.context = context;
@@ -129,223 +137,324 @@ public class RNPushNotificationHelper {
     }
 
     public void sendToNotificationCentre(Bundle bundle) {
-        try {
-            Class intentClass = getMainActivityClass();
-            if (intentClass == null) {
-                Log.e(LOG_TAG, "No activity class found for the notification");
-                return;
-            }
+        // try {
+        //     Class intentClass = getMainActivityClass();
+        //     if (intentClass == null) {
+        //         Log.e(LOG_TAG, "No activity class found for the notification");
+        //         return;
+        //     }
 
-            if (bundle.getString("message") == null) {
-                // this happens when a 'data' notification is received - we do not synthesize a local notification in this case
-                Log.d(LOG_TAG, "Cannot send to notification centre because there is no 'message' field in: " + bundle);
-                return;
-            }
+        //     if (bundle.getString("message") == null) {
+        //         // this happens when a 'data' notification is received - we do not synthesize a local notification in this case
+        //         Log.d(LOG_TAG, "Cannot send to notification centre because there is no 'message' field in: " + bundle);
+        //         return;
+        //     }
 
-            String notificationIdString = bundle.getString("id");
-            if (notificationIdString == null) {
-                Log.e(LOG_TAG, "No notification ID specified for the notification");
-                return;
-            }
+        //     String notificationIdString = bundle.getString("id");
+        //     if (notificationIdString == null) {
+        //         Log.e(LOG_TAG, "No notification ID specified for the notification");
+        //         return;
+        //     }
 
-            Resources res = context.getResources();
-            String packageName = context.getPackageName();
+        //     Resources res = context.getResources();
+        //     String packageName = context.getPackageName();
 
-            String title = bundle.getString("title");
-            if (title == null) {
-                ApplicationInfo appInfo = context.getApplicationInfo();
-                title = context.getPackageManager().getApplicationLabel(appInfo).toString();
-            }
+        //     String title = bundle.getString("title");
+        //     if (title == null) {
+        //         ApplicationInfo appInfo = context.getApplicationInfo();
+        //         title = context.getPackageManager().getApplicationLabel(appInfo).toString();
+        //     }
 
-            NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
-                    .setContentTitle(title)
-                    .setTicker(bundle.getString("ticker"))
-                    .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setAutoCancel(bundle.getBoolean("autoCancel", true));
+        //     NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
+        //             .setContentTitle(title)
+        //             .setTicker(bundle.getString("ticker"))
+        //             .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
+        //             .setPriority(NotificationCompat.PRIORITY_HIGH)
+        //             .setAutoCancel(bundle.getBoolean("autoCancel", true));
 
-            String group = bundle.getString("group");
-            if (group != null) {
-                notification.setGroup(group);
-            }
+        //     String group = bundle.getString("group");
+        //     if (group != null) {
+        //         notification.setGroup(group);
+        //     }
 
-            notification.setContentText(bundle.getString("message"));
+        //     notification.setContentText(bundle.getString("message"));
 
-            String largeIcon = bundle.getString("largeIcon");
+        //     String largeIcon = bundle.getString("largeIcon");
 
-            String subText = bundle.getString("subText");
+        //     String subText = bundle.getString("subText");
 
-            if (subText != null) {
-                notification.setSubText(subText);
-            }
+        //     if (subText != null) {
+        //         notification.setSubText(subText);
+        //     }
 
-            String numberString = bundle.getString("number");
-            if (numberString != null) {
-                notification.setNumber(Integer.parseInt(numberString));
-            }
+        //     String numberString = bundle.getString("number");
+        //     if (numberString != null) {
+        //         notification.setNumber(Integer.parseInt(numberString));
+        //     }
 
-            int smallIconResId;
-            int largeIconResId;
+        //     int smallIconResId;
+        //     int largeIconResId;
 
-            String smallIcon = bundle.getString("smallIcon");
+        //     String smallIcon = bundle.getString("smallIcon");
 
-            if (smallIcon != null) {
-                smallIconResId = res.getIdentifier(smallIcon, "mipmap", packageName);
-            } else {
-                smallIconResId = res.getIdentifier("ic_notification", "mipmap", packageName);
-            }
+        //     if (smallIcon != null) {
+        //         smallIconResId = res.getIdentifier(smallIcon, "mipmap", packageName);
+        //     } else {
+        //         smallIconResId = res.getIdentifier("ic_notification", "mipmap", packageName);
+        //     }
+
+        //     if (smallIconResId == 0) {
+        //         smallIconResId = res.getIdentifier("ic_launcher", "mipmap", packageName);
+
+        //         if (smallIconResId == 0) {
+        //             smallIconResId = android.R.drawable.ic_dialog_info;
+        //         }
+        //     }
+
+        //     if (largeIcon != null) {
+        //         largeIconResId = res.getIdentifier(largeIcon, "mipmap", packageName);
+        //     } else {
+        //         largeIconResId = res.getIdentifier("ic_launcher", "mipmap", packageName);
+        //     }
+
+        //     Bitmap largeIconBitmap = BitmapFactory.decodeResource(res, largeIconResId);
+
+        //     if (largeIconResId != 0 && (largeIcon != null || Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)) {
+        //         notification.setLargeIcon(largeIconBitmap);
+        //     }
+
+        //     notification.setSmallIcon(smallIconResId);
+        //     String bigText = bundle.getString("bigText");
+
+        //     if (bigText == null) {
+        //         bigText = bundle.getString("message");
+        //     }
+
+        //     notification.setStyle(new NotificationCompat.BigTextStyle().bigText(bigText));
+
+        //     Intent intent = new Intent(context, intentClass);
+        //     intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        //     bundle.putBoolean("userInteraction", true);
+        //     intent.putExtra("notification", bundle);
+
+        //     if (!bundle.containsKey("playSound") || bundle.getBoolean("playSound")) {
+        //         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        //         String soundName = bundle.getString("soundName");
+        //         if (soundName != null) {
+        //             if (!"default".equalsIgnoreCase(soundName)) {
+
+        //                 // sound name can be full filename, or just the resource name.
+        //                 // So the strings 'my_sound.mp3' AND 'my_sound' are accepted
+        //                 // The reason is to make the iOS and android javascript interfaces compatible
+
+        //                 int resId;
+        //                 if (context.getResources().getIdentifier(soundName, "raw", context.getPackageName()) != 0) {
+        //                     resId = context.getResources().getIdentifier(soundName, "raw", context.getPackageName());
+        //                 } else {
+        //                     soundName = soundName.substring(0, soundName.lastIndexOf('.'));
+        //                     resId = context.getResources().getIdentifier(soundName, "raw", context.getPackageName());
+        //                 }
+
+        //                 soundUri = Uri.parse("android.resource://" + context.getPackageName() + "/" + resId);
+        //             }
+        //         }
+        //         notification.setSound(soundUri);
+        //     }
+
+        //     if (bundle.containsKey("ongoing") || bundle.getBoolean("ongoing")) {
+        //         notification.setOngoing(bundle.getBoolean("ongoing"));
+        //     }
+
+        //     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        //         notification.setCategory(NotificationCompat.CATEGORY_CALL);
+
+        //         String color = bundle.getString("color");
+        //         if (color != null) {
+        //             notification.setColor(Color.parseColor(color));
+        //         }
+        //     }
+
+        //     int notificationID = Integer.parseInt(notificationIdString);
+
+        //     PendingIntent pendingIntent = PendingIntent.getActivity(context, notificationID, intent,
+        //             PendingIntent.FLAG_UPDATE_CURRENT);
+
+        //     NotificationManager notificationManager = notificationManager();
+
+        //     notification.setContentIntent(pendingIntent);
+
+        //     if (!bundle.containsKey("vibrate") || bundle.getBoolean("vibrate")) {
+        //         long vibration = bundle.containsKey("vibration") ? (long) bundle.getDouble("vibration") : DEFAULT_VIBRATION;
+        //         if (vibration == 0)
+        //             vibration = DEFAULT_VIBRATION;
+        //         notification.setVibrate(new long[]{0, vibration});
+        //     }
+
+        //     JSONArray actionsArray = null;
+        //     try {
+        //         actionsArray = bundle.getString("actions") != null ? new JSONArray(bundle.getString("actions")) : null;
+        //     } catch (JSONException e) {
+        //         Log.e(LOG_TAG, "Exception while converting actions to JSON object.", e);
+        //     }
+
+        //     if (actionsArray != null) {
+        //         // No icon for now. The icon value of 0 shows no icon.
+        //         int icon = 0;
+
+        //         // Add button for each actions.
+        //         for (int i = 0; i < actionsArray.length(); i++) {
+        //             String action;
+        //             try {
+        //                 action = actionsArray.getString(i);
+        //             } catch (JSONException e) {
+        //                 Log.e(LOG_TAG, "Exception while getting action from actionsArray.", e);
+        //                 continue;
+        //             }
+
+        //             Intent actionIntent = new Intent();
+        //             actionIntent.setAction(context.getPackageName() + "." + action);
+        //             // Add "action" for later identifying which button gets pressed.
+        //             bundle.putString("action", action);
+        //             actionIntent.putExtra("notification", bundle);
+        //             PendingIntent pendingActionIntent = PendingIntent.getBroadcast(context, notificationID, actionIntent,
+        //                     PendingIntent.FLAG_UPDATE_CURRENT);
+        //             notification.addAction(icon, action, pendingActionIntent);
+        //         }
+        //     }
+
+        //     // Remove the notification from the shared preferences once it has been shown
+        //     // to avoid showing the notification again when the phone is rebooted. If the
+        //     // notification is not removed, then every time the phone is rebooted, we will
+        //     // try to reschedule all the notifications stored in shared preferences and since
+        //     // these notifications will be in the past time, they will be shown immediately
+        //     // to the user which we shouldn't do. So, remove the notification from the shared
+        //     // preferences once it has been shown to the user. If it is a repeating notification
+        //     // it will be scheduled again.
+        //     if (scheduledNotificationsPersistence.getString(notificationIdString, null) != null) {
+        //         SharedPreferences.Editor editor = scheduledNotificationsPersistence.edit();
+        //         editor.remove(notificationIdString);
+        //         commit(editor);
+        //     }
+
+        //     Notification info = notification.build();
+        //     info.defaults |= Notification.DEFAULT_LIGHTS;
+
+        //     if (bundle.containsKey("tag")) {
+        //         String tag = bundle.getString("tag");
+        //         notificationManager.notify(tag, notificationID, info);
+        //     } else {
+        //         notificationManager.notify(notificationID, info);
+        //     }
+
+        //     // Can't use setRepeating for recurring notifications because setRepeating
+        //     // is inexact by default starting API 19 and the notifications are not fired
+        //     // at the exact time. During testing, it was found that notifications could
+        //     // late by many minutes.
+        //     this.scheduleNextNotificationIfRepeating(bundle);
+        // } catch (Exception e) {
+        //     Log.e(LOG_TAG, "failed to send push notification", e);
+        // }
+
+
+
+      /* = = = = = = NOTIFICATION STACKING = = = = = = */
+      try{
+        String packageName = context.getPackageName();
+        NotificationManager notificationManager;
+        NotificationCompat.Builder notificationBuilder;
+        String notificationTitle;
+        String notificationText;
+        
+
+        String title = bundle.getString("title");
+        if (title == null) {
+          ApplicationInfo appInfo = context.getApplicationInfo();
+          title = context.getPackageManager().getApplicationLabel(appInfo).toString();
+        }       
+        
+
+        combinedNotificationCounter++;
+        notificationBuilder = new NotificationCompat.Builder(context)
+                // .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(title)
+                .setContentText(bundle.getString("message"))
+                .setGroup("group_emails")
+                .setTicker(bundle.getString("ticker"))
+                .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setGroupSummary(true)
+                .setContentText(combinedNotificationCounter + " new messages");        
+
+
+        String text = "Hello..This is a Notification Test";
+        Resources res = context.getResources();
+        String largeIcon = bundle.getString("largeIcon");
+        int smallIconResId;
+        int largeIconResId;
+        String smallIcon = bundle.getString("smallIcon");
+
+        if (smallIcon != null) {
+            smallIconResId = res.getIdentifier(smallIcon, "mipmap", packageName);
+        } else {
+            smallIconResId = res.getIdentifier("ic_notification", "mipmap", packageName);
+        }
+
+        if (smallIconResId == 0) {
+            smallIconResId = res.getIdentifier("ic_launcher", "mipmap", packageName);
 
             if (smallIconResId == 0) {
-                smallIconResId = res.getIdentifier("ic_launcher", "mipmap", packageName);
-
-                if (smallIconResId == 0) {
-                    smallIconResId = android.R.drawable.ic_dialog_info;
-                }
+                smallIconResId = android.R.drawable.ic_dialog_info;
             }
-
-            if (largeIcon != null) {
-                largeIconResId = res.getIdentifier(largeIcon, "mipmap", packageName);
-            } else {
-                largeIconResId = res.getIdentifier("ic_launcher", "mipmap", packageName);
-            }
-
-            Bitmap largeIconBitmap = BitmapFactory.decodeResource(res, largeIconResId);
-
-            if (largeIconResId != 0 && (largeIcon != null || Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)) {
-                notification.setLargeIcon(largeIconBitmap);
-            }
-
-            notification.setSmallIcon(smallIconResId);
-            String bigText = bundle.getString("bigText");
-
-            if (bigText == null) {
-                bigText = bundle.getString("message");
-            }
-
-            notification.setStyle(new NotificationCompat.BigTextStyle().bigText(bigText));
-
-            Intent intent = new Intent(context, intentClass);
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            bundle.putBoolean("userInteraction", true);
-            intent.putExtra("notification", bundle);
-
-            if (!bundle.containsKey("playSound") || bundle.getBoolean("playSound")) {
-                Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                String soundName = bundle.getString("soundName");
-                if (soundName != null) {
-                    if (!"default".equalsIgnoreCase(soundName)) {
-
-                        // sound name can be full filename, or just the resource name.
-                        // So the strings 'my_sound.mp3' AND 'my_sound' are accepted
-                        // The reason is to make the iOS and android javascript interfaces compatible
-
-                        int resId;
-                        if (context.getResources().getIdentifier(soundName, "raw", context.getPackageName()) != 0) {
-                            resId = context.getResources().getIdentifier(soundName, "raw", context.getPackageName());
-                        } else {
-                            soundName = soundName.substring(0, soundName.lastIndexOf('.'));
-                            resId = context.getResources().getIdentifier(soundName, "raw", context.getPackageName());
-                        }
-
-                        soundUri = Uri.parse("android.resource://" + context.getPackageName() + "/" + resId);
-                    }
-                }
-                notification.setSound(soundUri);
-            }
-
-            if (bundle.containsKey("ongoing") || bundle.getBoolean("ongoing")) {
-                notification.setOngoing(bundle.getBoolean("ongoing"));
-            }
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                notification.setCategory(NotificationCompat.CATEGORY_CALL);
-
-                String color = bundle.getString("color");
-                if (color != null) {
-                    notification.setColor(Color.parseColor(color));
-                }
-            }
-
-            int notificationID = Integer.parseInt(notificationIdString);
-
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, notificationID, intent,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-
-            NotificationManager notificationManager = notificationManager();
-
-            notification.setContentIntent(pendingIntent);
-
-            if (!bundle.containsKey("vibrate") || bundle.getBoolean("vibrate")) {
-                long vibration = bundle.containsKey("vibration") ? (long) bundle.getDouble("vibration") : DEFAULT_VIBRATION;
-                if (vibration == 0)
-                    vibration = DEFAULT_VIBRATION;
-                notification.setVibrate(new long[]{0, vibration});
-            }
-
-            JSONArray actionsArray = null;
-            try {
-                actionsArray = bundle.getString("actions") != null ? new JSONArray(bundle.getString("actions")) : null;
-            } catch (JSONException e) {
-                Log.e(LOG_TAG, "Exception while converting actions to JSON object.", e);
-            }
-
-            if (actionsArray != null) {
-                // No icon for now. The icon value of 0 shows no icon.
-                int icon = 0;
-
-                // Add button for each actions.
-                for (int i = 0; i < actionsArray.length(); i++) {
-                    String action;
-                    try {
-                        action = actionsArray.getString(i);
-                    } catch (JSONException e) {
-                        Log.e(LOG_TAG, "Exception while getting action from actionsArray.", e);
-                        continue;
-                    }
-
-                    Intent actionIntent = new Intent();
-                    actionIntent.setAction(context.getPackageName() + "." + action);
-                    // Add "action" for later identifying which button gets pressed.
-                    bundle.putString("action", action);
-                    actionIntent.putExtra("notification", bundle);
-                    PendingIntent pendingActionIntent = PendingIntent.getBroadcast(context, notificationID, actionIntent,
-                            PendingIntent.FLAG_UPDATE_CURRENT);
-                    notification.addAction(icon, action, pendingActionIntent);
-                }
-            }
-
-            // Remove the notification from the shared preferences once it has been shown
-            // to avoid showing the notification again when the phone is rebooted. If the
-            // notification is not removed, then every time the phone is rebooted, we will
-            // try to reschedule all the notifications stored in shared preferences and since
-            // these notifications will be in the past time, they will be shown immediately
-            // to the user which we shouldn't do. So, remove the notification from the shared
-            // preferences once it has been shown to the user. If it is a repeating notification
-            // it will be scheduled again.
-            if (scheduledNotificationsPersistence.getString(notificationIdString, null) != null) {
-                SharedPreferences.Editor editor = scheduledNotificationsPersistence.edit();
-                editor.remove(notificationIdString);
-                commit(editor);
-            }
-
-            Notification info = notification.build();
-            info.defaults |= Notification.DEFAULT_LIGHTS;
-
-            if (bundle.containsKey("tag")) {
-                String tag = bundle.getString("tag");
-                notificationManager.notify(tag, notificationID, info);
-            } else {
-                notificationManager.notify(notificationID, info);
-            }
-
-            // Can't use setRepeating for recurring notifications because setRepeating
-            // is inexact by default starting API 19 and the notifications are not fired
-            // at the exact time. During testing, it was found that notifications could
-            // late by many minutes.
-            this.scheduleNextNotificationIfRepeating(bundle);
-        } catch (Exception e) {
-            Log.e(LOG_TAG, "failed to send push notification", e);
         }
+
+        if (largeIcon != null) {
+            largeIconResId = res.getIdentifier(largeIcon, "mipmap", packageName);
+        } else {
+            largeIconResId = res.getIdentifier("ic_launcher", "mipmap", packageName);
+        }
+
+        Bitmap largeIconBitmap = BitmapFactory.decodeResource(res, largeIconResId);
+
+        if (largeIconResId != 0 && (largeIcon != null || Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)) {
+            notificationBuilder.setLargeIcon(largeIconBitmap);
+        }
+
+        notificationBuilder.setSmallIcon(smallIconResId);        
+
+        
+
+
+        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+        inboxStyle.setBigContentTitle(title);
+        inboxStyle.setSummaryText("mehulrughani@gmail.com");
+        for (int i = 0; i < combinedNotificationCounter; i++) {
+            // inboxStyle.addLine("This is Test" + i);
+          inboxStyle.addLine(bundle.getString("message"));
+        }
+        currentNotificationID = 500;
+        notificationBuilder.setStyle(inboxStyle);
+
+        Class intentClass = getMainActivityClass();
+        Intent notificationIntent = new Intent(context, intentClass);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationManager = notificationManager();
+
+        notificationBuilder.setContentIntent(pendingIntent);
+        Notification notification = notificationBuilder.build();
+        notification.flags = Notification.FLAG_AUTO_CANCEL;
+        notification.defaults = Notification.DEFAULT_SOUND;
+        currentNotificationID++;
+        int notificationId = currentNotificationID;
+        if (notificationId == Integer.MAX_VALUE - 1)
+            notificationId = 0;
+        notificationManager.notify(notificationId, notification);        
+
+
+      }
+      catch (Exception e) {
+        Log.e(LOG_TAG, "failed to send push notification", e);
+      }
     }
 
     private void scheduleNextNotificationIfRepeating(Bundle bundle) {
