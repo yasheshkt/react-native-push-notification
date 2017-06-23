@@ -42,6 +42,10 @@ NotificationsComponent.prototype.presentLocalNotification = function(details: Ob
 	RNPushNotification.presentLocalNotification(details);
 };
 
+NotificationsComponent.prototype.resetReadCountAndroid = function() {
+  RNPushNotification.resetReadCountPushNotification();
+};
+
 NotificationsComponent.prototype.scheduleLocalNotification = function(details: Object) {
 	RNPushNotification.scheduleLocalNotification(details);
 };

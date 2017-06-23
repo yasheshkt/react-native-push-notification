@@ -20,6 +20,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -68,6 +69,7 @@ public class RNPushNotification extends ReactContextBaseJavaModule implements Ac
     }
 
     private void registerNotificationsRegistration() {
+      Log.d(LOG_TAG, "--------------------------------------RNPushNotification 72-------------------------------------------");
         IntentFilter intentFilter = new IntentFilter(getReactApplicationContext().getPackageName() + ".RNPushNotificationRegisteredToken");
 
         getReactApplicationContext().registerReceiver(new BroadcastReceiver() {
@@ -83,6 +85,7 @@ public class RNPushNotification extends ReactContextBaseJavaModule implements Ac
     }
 
     private void registerNotificationsReceiveNotificationActions(ReadableArray actions) {
+      Log.d(LOG_TAG, "--------------------------------------RNPushNotification 88-------------------------------------------");
         IntentFilter intentFilter = new IntentFilter();
         // Add filter for each actions.
         for (int i = 0; i < actions.size(); i++) {
@@ -107,6 +110,7 @@ public class RNPushNotification extends ReactContextBaseJavaModule implements Ac
 
     @ReactMethod
     public void requestPermissions(String senderID) {
+      Log.d(LOG_TAG, "--------------------------------------RNPushNotification 113-------------------------------------------");
         ReactContext reactContext = getReactApplicationContext();
 
         Intent GCMService = new Intent(reactContext, RNPushNotificationRegistrationService.class);
@@ -117,6 +121,7 @@ public class RNPushNotification extends ReactContextBaseJavaModule implements Ac
 
     @ReactMethod
     public void presentLocalNotification(ReadableMap details) {
+      Log.d(LOG_TAG, "--------------------------------------RNPushNotification 124-------------------------------------------");
         Bundle bundle = Arguments.toBundle(details);
         // If notification ID is not provided by the user, generate one at random
         if (bundle.getString("id") == null) {
@@ -126,7 +131,14 @@ public class RNPushNotification extends ReactContextBaseJavaModule implements Ac
     }
 
     @ReactMethod
+    public void resetReadCountPushNotification() {
+      Log.d(LOG_TAG, "--------------------------------------resetReadCountPushNotification-------------------------------------------");
+      RNPushNotificationHelper.resetReadCountHelper();
+    }
+
+    @ReactMethod
     public void scheduleLocalNotification(ReadableMap details) {
+      Log.d(LOG_TAG, "--------------------------------------RNPushNotification 135-------------------------------------------");
         Bundle bundle = Arguments.toBundle(details);
         // If notification ID is not provided by the user, generate one at random
         if (bundle.getString("id") == null) {
@@ -137,6 +149,7 @@ public class RNPushNotification extends ReactContextBaseJavaModule implements Ac
 
     @ReactMethod
     public void getInitialNotification(Promise promise) {
+      Log.d(LOG_TAG, "--------------------------------------RNPushNotification 146-------------------------------------------");
         WritableMap params = Arguments.createMap();
         Activity activity = getCurrentActivity();
         if (activity != null) {
@@ -158,6 +171,7 @@ public class RNPushNotification extends ReactContextBaseJavaModule implements Ac
 
     // removed @Override temporarily just to get it working on different versions of RN
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+      Log.d(LOG_TAG, "--------------------------------------RNPushNotification 168-------------------------------------------");
         onActivityResult(requestCode, resultCode, data);
     }
 
@@ -177,6 +191,7 @@ public class RNPushNotification extends ReactContextBaseJavaModule implements Ac
      * @see <a href="https://facebook.github.io/react-native/docs/pushnotificationios.html">RN docs</a>
      */
     public void cancelAllLocalNotifications() {
+      Log.d(LOG_TAG, "--------------------------------------RNPushNotification 188-------------------------------------------");
         mRNPushNotificationHelper.cancelAllScheduledNotifications();
         mRNPushNotificationHelper.clearNotifications();
     }
@@ -191,11 +206,13 @@ public class RNPushNotification extends ReactContextBaseJavaModule implements Ac
      * @see <a href="https://facebook.github.io/react-native/docs/pushnotificationios.html">RN docs</a>
      */
     public void cancelLocalNotifications(ReadableMap userInfo) {
+      Log.d(LOG_TAG, "--------------------------------------RNPushNotification 203-------------------------------------------");
         mRNPushNotificationHelper.cancelScheduledNotification(userInfo);
     }
 
     @ReactMethod
     public void registerNotificationActions(ReadableArray actions) {
+      Log.d(LOG_TAG, "--------------------------------------RNPushNotification 209-------------------------------------------");
         registerNotificationsReceiveNotificationActions(actions);
     }
 }

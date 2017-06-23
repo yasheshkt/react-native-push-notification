@@ -148,6 +148,10 @@ Notifications.localNotification = function(details: Object) {
 	}
 };
 
+Notifications.resetReadCountFinal = function() {
+  this.handler.resetReadCountAndroid();
+}
+
 /**
  * Local Notifications Schedule
  * @param {Object}		details (same as localNotification)
@@ -261,6 +265,10 @@ Notifications.requestPermissions = function() {
 /* Fallback functions */
 Notifications.presentLocalNotification = function() {
 	return this.callNative('presentLocalNotification', arguments);
+};
+
+Notifications.resetReadCountFinal = function() {
+  return this.callNative('resetReadCountAndroid');
 };
 
 Notifications.scheduleLocalNotification = function() {

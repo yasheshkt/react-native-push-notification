@@ -1,11 +1,71 @@
 {
-  "name": "react-native-push-notification",
-  "version": "2.2.1",
-  "description": "React Native Local and Remote Notifications",
-  "main": "index",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "_args": [
+    [
+      {
+        "raw": "https://github.com/yasheshkt/react-native-push-notification",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "https://github.com/yasheshkt/react-native-push-notification",
+        "spec": "git+https://github.com/yasheshkt/react-native-push-notification.git",
+        "type": "hosted",
+        "hosted": {
+          "type": "github",
+          "ssh": "git@github.com:yasheshkt/react-native-push-notification.git",
+          "sshUrl": "git+ssh://git@github.com/yasheshkt/react-native-push-notification.git",
+          "httpsUrl": "git+https://github.com/yasheshkt/react-native-push-notification.git",
+          "gitUrl": "git://github.com/yasheshkt/react-native-push-notification.git",
+          "shortcut": "github:yasheshkt/react-native-push-notification",
+          "directUrl": "https://raw.githubusercontent.com/yasheshkt/react-native-push-notification/master/package.json"
+        }
+      },
+      "/home/yashesh/Yashesh Nishil Office/Repositories/tislit-app"
+    ]
+  ],
+  "_from": "git+https://github.com/yasheshkt/react-native-push-notification.git",
+  "_id": "react-native-push-notification@2.2.1",
+  "_inCache": true,
+  "_location": "/react-native-push-notification",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "https://github.com/yasheshkt/react-native-push-notification",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "https://github.com/yasheshkt/react-native-push-notification",
+    "spec": "git+https://github.com/yasheshkt/react-native-push-notification.git",
+    "type": "hosted",
+    "hosted": {
+      "type": "github",
+      "ssh": "git@github.com:yasheshkt/react-native-push-notification.git",
+      "sshUrl": "git+ssh://git@github.com/yasheshkt/react-native-push-notification.git",
+      "httpsUrl": "git+https://github.com/yasheshkt/react-native-push-notification.git",
+      "gitUrl": "git://github.com/yasheshkt/react-native-push-notification.git",
+      "shortcut": "github:yasheshkt/react-native-push-notification",
+      "directUrl": "https://raw.githubusercontent.com/yasheshkt/react-native-push-notification/master/package.json"
+    }
   },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/yasheshkt/react-native-push-notification.git#a6fa8ffcd81837b0a107dd1dc2b961df0edafed5",
+  "_shasum": "caef9e78a1957c17c556193e032498f49a217405",
+  "_shrinkwrap": null,
+  "_spec": "https://github.com/yasheshkt/react-native-push-notification",
+  "_where": "/home/yashesh/Yashesh Nishil Office/Repositories/tislit-app",
+  "author": {
+    "name": "zo0r",
+    "email": "http://zo0r.me"
+  },
+  "bugs": {
+    "url": "https://github.com/zo0r/react-native-push-notification/issues"
+  },
+  "dependencies": {},
+  "description": "React Native Local and Remote Notifications",
+  "devDependencies": {},
+  "gitHead": "a6fa8ffcd81837b0a107dd1dc2b961df0edafed5",
+  "homepage": "https://github.com/zo0r/react-native-push-notification#readme",
   "keywords": [
     "react-component",
     "react-native",
@@ -16,21 +76,26 @@
     "apns",
     "gcm"
   ],
-  "bugs": {
-    "url": "https://github.com/zo0r/react-native-push-notification/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com:zo0r/react-native-push-notification.git"
-  },
+  "license": "MIT",
+  "main": "index",
+  "name": "react-native-push-notification",
+  "optionalDependencies": {},
   "peerDependencies": {
     "react-native": ">=0.33"
+  },
+  "readme": "# React Native Push Notifications\n[![npm version](https://badge.fury.io/js/react-native-push-notification.svg?update=6)](http://badge.fury.io/js/react-native-push-notification)\n[![npm downloads](https://img.shields.io/npm/dm/react-native-push-notification.svg?update=6)](http://badge.fury.io/js/react-native-push-notification)\n\nReact Native Local and Remote Notifications for iOS and Android\n\n## Supported React Native Versions\n| Component Version     | RN Versions    | README     |\n|-----------------------|---------------|------------|\n| **1.0.7**          | **<= 0.27**   | [Open](https://github.com/zo0r/react-native-push-notification/blob/f42723817f1687e0da23e6753eb8a9f0385b6ac5/README.md)   |\n| **1.0.8**          | **0.28**   | [Open](https://github.com/zo0r/react-native-push-notification/blob/2eafd1961273ca6a82ad4dd6514fbf1d1a829089/README.md)   |\n| **2.0.1**          | **0.29**   | [Open](https://github.com/zo0r/react-native-push-notification/blob/c7ab7cd84ea19e42047379aefaf568bb16a81936/README.md)   |\n| **2.0.2**          | **0.30, 0.31, 0.32**   | [Open](https://github.com/zo0r/react-native-push-notification/blob/a0f7d44e904ba0b92933518e5bf6b444f1c90abb/README.md)   |\n| **>= 2.1.0**          | **>= 0.33**   | [Open](https://github.com/zo0r/react-native-push-notification/blob/a359e5c00954aa324136eaa9808333d6ca246171/README.md)   |\n\n\n## Installation\n`npm install react-native-push-notification`\n\n`react-native link`\n\n## Issues\n\nHaving a problem?  Read the [troubleshooting](./trouble-shooting.md) guide before raising an issue.\n\n## Pull Requests\n\n[Please read...](./submitting-a-pull-request.md)\n\n## iOS manual Installation\nThe component uses PushNotificationIOS for the iOS part.\n\n[Please see: PushNotificationIOS](https://facebook.github.io/react-native/docs/pushnotificationios.html#content)\n\n## Android manual Installation\n\n**NOTE: To use a specific `play-service-gcm` version, use in your `android/app/build.gradle` (change `8.1.0` for your version):**\n```gradle\n...\n\ndependencies {\n    ...\n\n    compile project(':react-native-push-notification')\n    compile ('com.google.android.gms:play-services-gcm:8.1.0') {\n        force = true;\n    }\n}\n```\n\nIn your `AndroidManifest.xml`\n```xml\n    .....\n    <uses-permission android:name=\"android.permission.WAKE_LOCK\" />\n    <permission\n        android:name=\"${applicationId}.permission.C2D_MESSAGE\"\n        android:protectionLevel=\"signature\" />\n    <uses-permission android:name=\"${applicationId}.permission.C2D_MESSAGE\" />\n    <uses-permission android:name=\"android.permission.VIBRATE\" />\n    <uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>\n\n    <application ....>\n        <receiver\n            android:name=\"com.google.android.gms.gcm.GcmReceiver\"\n            android:exported=\"true\"\n            android:permission=\"com.google.android.c2dm.permission.SEND\" >\n            <intent-filter>\n                <action android:name=\"com.google.android.c2dm.intent.RECEIVE\" />\n                <category android:name=\"${applicationId}\" />\n            </intent-filter>\n        </receiver>\n        \n        <receiver android:name=\"com.dieam.reactnativepushnotification.modules.RNPushNotificationPublisher\" />\n        <receiver android:name=\"com.dieam.reactnativepushnotification.modules.RNPushNotificationBootEventReceiver\">\n            <intent-filter>\n                <action android:name=\"android.intent.action.BOOT_COMPLETED\" />\n            </intent-filter>\n        </receiver>\n        <service android:name=\"com.dieam.reactnativepushnotification.modules.RNPushNotificationRegistrationService\"/>\n        <service\n            android:name=\"com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService\"\n            android:exported=\"false\" >\n            <intent-filter>\n                <action android:name=\"com.google.android.c2dm.intent.RECEIVE\" />\n            </intent-filter>\n        </service>\n     .....\n\n```\n\nIn `android/settings.gradle`\n```gradle\n...\n\ninclude ':react-native-push-notification'\nproject(':react-native-push-notification').projectDir = file('../node_modules/react-native-push-notification/android')\n```\n\nManually register module in `MainApplication.java` (if you did not use `react-native link`):\n\n```java\nimport com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;  // <--- Import Package\n\npublic class MainApplication extends Application implements ReactApplication {\n\n  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {\n      @Override\n      protected boolean getUseDeveloperSupport() {\n        return BuildConfig.DEBUG;\n      }\n\n      @Override\n      protected List<ReactPackage> getPackages() {\n\n      return Arrays.<ReactPackage>asList(\n          new MainReactPackage(),\n          new ReactNativePushNotificationPackage() // <---- Add the Package\n      );\n    }\n  };\n\n  ....\n}\n```\n\n## Usage\n```javascript\nvar PushNotification = require('react-native-push-notification');\n\nPushNotification.configure({\n\n    // (optional) Called when Token is generated (iOS and Android)\n    onRegister: function(token) {\n        console.log( 'TOKEN:', token );\n    },\n\n    // (required) Called when a remote or local notification is opened or received\n    onNotification: function(notification) {\n        console.log( 'NOTIFICATION:', notification );\n    },\n\n    // ANDROID ONLY: GCM Sender ID (optional - not required for local notifications, but is need to receive remote push notifications) \n    senderID: \"YOUR GCM SENDER ID\",\n\n    // IOS ONLY (optional): default: all - Permissions to register.\n    permissions: {\n        alert: true,\n        badge: true,\n        sound: true\n    },\n\n    // Should the initial notification be popped automatically\n    // default: true\n    popInitialNotification: true,\n\n    /**\n      * (optional) default: true\n      * - Specified if permissions (ios) and token (android and ios) will requested or not,\n      * - if not, you must call PushNotificationsHandler.requestPermissions() later\n      */\n    requestPermissions: true,\n});\n```\n\n## Handling Notifications\nWhen any notification is opened or received the callback `onNotification` is called passing an object with the notification data.\n\nNotification object example:\n```javascript\n{\n    foreground: false, // BOOLEAN: If the notification was received in foreground or not\n    userInteraction: false, // BOOLEAN: If the notification was opened by the user from the notification area or not\n    message: 'My Notification Message', // STRING: The notification message\n    data: {}, // OBJECT: The push data\n}\n```\n\n## Local Notifications\n`PushNotification.localNotification(details: Object)`\n\nEXAMPLE:\n```javascript\nPushNotification.localNotification({\n    /* Android Only Properties */\n    id: '0', // (optional) Valid unique 32 bit integer specified as string. default: Autogenerated Unique ID\n    ticker: \"My Notification Ticker\", // (optional)\n    autoCancel: true, // (optional) default: true\n    largeIcon: \"ic_launcher\", // (optional) default: \"ic_launcher\"\n    smallIcon: \"ic_notification\", // (optional) default: \"ic_notification\" with fallback for \"ic_launcher\"\n    bigText: \"My big text that will be shown when notification is expanded\", // (optional) default: \"message\" prop\n    subText: \"This is a subText\", // (optional) default: none\n    color: \"red\", // (optional) default: system default\n    vibrate: true, // (optional) default: true\n    vibration: 300, // vibration length in milliseconds, ignored if vibrate=false, default: 1000\n    tag: 'some_tag', // (optional) add tag to message\n    group: \"group\", // (optional) add group to message\n    ongoing: false, // (optional) set whether this is an \"ongoing\" notification\n\n    /* iOS only properties */\n    alertAction: // (optional) default: view\n    category: // (optional) default: null\n    userInfo: // (optional) default: null (object containing additional notification data)\n\n    /* iOS and Android properties */\n    title: \"My Notification Title\", // (optional, for iOS this is only used in apple watch, the title will be the app name on other iOS devices)\n    message: \"My Notification Message\", // (required)\n    playSound: false, // (optional) default: true\n    soundName: 'default', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)\n    number: '10', // (optional) Valid 32 bit integer specified as string. default: none (Cannot be zero)\n    repeatType: 'day', // (Android only) Repeating interval. Could be one of `week`, `day`, `hour`, `minute, `time`. If specified as time, it should be accompanied by one more parameter 'repeatTime` which should the number of milliseconds between each interval\n    actions: '[\"Yes\", \"No\"]',  // (Android only) See the doc for notification actions to know more\n});\n```\n\n## Scheduled Notifications\n`PushNotification.localNotificationSchedule(details: Object)`\n\nEXAMPLE:\n```javascript\nPushNotification.localNotificationSchedule({\n  message: \"My Notification Message\", // (required)\n  date: new Date(Date.now() + (60 * 1000)) // in 60 secs\n});\n```\n\n## Custom sounds\n\nIn android, add your custom sound file to `[project_root]/android/app/src/main/res/raw`\n\nIn iOS, add your custom sound file to the project `Resources` in xCode.\n\nIn the location notification json specify the full file name:\n\n    soundName: 'my_sound.mp3'\n\n## Cancelling notifications\n\n### 1) cancelLocalNotifications\n\n`PushNotification.cancelLocalNotifications(details);` \n\nThe the `details` parameter allows you to specify a `userInfo` dictionary that can be used to match one or more *scheduled* notifications.  Each\nmatched notification is cancelled and its alerts removed from the notification centre.  The RN docs suggest this is an optional parameter, but\nit is not.\n\n```javascript\nPushNotification.cancelLocalNotifications({id: '123'});\n```\n\n### 2) cancelAllLocalNotifications\n\n`PushNotification.cancelAllLocalNotifications()` \n\nCancels all scheduled notifications AND clears the notifications alerts that are in the notification centre.\n\n*NOTE: there is currently no api for removing specific notification alerts from the notification centre.*\n\n## Repeating Notifications ##\n\n(Android only) Specify `repeatType` and optionally `repeatTime` while scheduling the local notification. Check the local notification example above.\n\nFor iOS, the repeating notification should land soon. It has already been merged to the [master](https://github.com/facebook/react-native/pull/10337)\n\n## Notification Actions ##\n\n(Android only) [Refer](https://github.com/zo0r/react-native-push-notification/issues/151) to this issue to see an example of a notification action.\n\nTwo things are required to setup notification actions.\n\n### 1) Specify notification actions for a notification\nThis is done by specifying an `actions` parameters while configuring the local notification. This is an array of strings where each string is a notificaiton action that will be presented with the notification.\n\nFor e.g. `actions: '[\"Accept\", \"Reject\"]'  // Must be in string format` \n \nThe array itself is specified in string format to circumvent some problems because of the way JSON arrays are handled by react-native android bridge.\n\n### 2) Specify handlers for the notification actions\nFor each action specified in the `actions` field, we need to add a handler that is called when the user clicks on the action. This can be done in the `componentWillMount` of your main app file or in a separate file which is imported in your main app file. Notification actions handlers can be configured as below:\n\n```\nimport PushNotificationAndroid from 'react-native-push-notification'\n\n(function() {\n  // Register all the valid actions for notifications here and add the action handler for each action\n  PushNotificationAndroid.registerNotificationActions(['Accept','Reject','Yes','No']);\n  DeviceEventEmitter.addListener('notificationActionReceived', function(action){\n    console.log ('Notification action received: ' + action);\n    const info = JSON.parse(action.dataJSON);\n    if (info.action == 'Accept') {\n      // Do work pertaining to Accept action here\n    } else if (info.action == 'Reject') {\n      // Do work pertaining to Reject action here\n    }\n    // Add all the required actions handlers\n  });\n})();\n```\n\nFor iOS, you can use this [package](https://github.com/holmesal/react-native-ios-notification-actions) to add notification actions.\n\n## Set application badge icon\n\n`PushNotification.setApplicationIconBadgeNumber(number: number)` \n\nWorks natively in iOS.\n\nUses the [ShortcutBadger](https://github.com/leolin310148/ShortcutBadger) on Android, and as such will not work on all Android devices.\n\n## Sending Notification Data From Server\nSame parameters as `PushNotification.localNotification()`\n\n## iOS Only Methods\n`PushNotification.checkPermissions(callback: Function)` Check permissions\n\n`PushNotification.getApplicationIconBadgeNumber(callback: Function)` get badge number\n\n`PushNotification.abandonPermissions()` Abandon permissions\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/zo0r/react-native-push-notification.git"
   },
   "rnpm": {
     "android": {
       "packageInstance": "new ReactNativePushNotificationPackage()"
     }
   },
-  "author": "zo0r <http://zo0r.me>",
-  "license": "MIT"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "2.2.1"
 }
